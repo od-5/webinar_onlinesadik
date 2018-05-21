@@ -12,12 +12,15 @@
 	<link media="all" rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}" />
 	<link media="all" rel="stylesheet" type="text/css" href="{% static 'css/jquery.fancybox.css' %}" />
 	<script src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+	<script src="{% static 'js/jquery.validate.js' %}"></script>
 	<script src="{% static 'js/jquery.fancybox.js' %}"></script>
 	<script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
 	<script src="{% static 'js/typed.min.js' %}"></script>
 	<!--[if lt IE 9]><script type="text/javascript" src="{% static 'js/html5.js' %}"></script><![endif]-->
 	<script src="{% static 'js/all.js' %}"></script>
   {{ SETUP.top_js|safe|default:'' }}
+  {% block extra_top %}
+  {% endblock %}
 </head>
 <body>	
 	<div id="wrapper">
@@ -35,6 +38,7 @@
 					<div class="header-center">Бесплатный <b>вебинар</b></div>
 				</div>
 			</div>
+    {% block header_content %}
 			<div class="header-main">
 				<div class="holder">
 					<div class="header-block">
@@ -45,7 +49,7 @@
 								Количество мест ограничено
 							</div>
 							<div class="header-video">
-								<iframe src="https://www.youtube.com/embed/sfdwazsH148" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                <iframe src="https://www.youtube.com/embed/kQKf9FvgMGM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 							</div>
 						</div>
 						<div class="header-form" id="form-block">
@@ -54,16 +58,18 @@
 							</div>
 							<div class="header-form-block">
 								<div class="form-title">Заполните форму <br>для участия в вебинаре</div>
-								<form action="">
+								<form action="{% url 'ticket' %}" method="post">
+                  {% csrf_token %}
 									<fieldset>
 										<input name="name" type="text" class="input" placeholder="Ваше имя">
 										<input name="phone" type="text" class="input" placeholder="Телефон">
 										<input name="mail" type="text" class="input" placeholder="E-mail">
+                    <input type="hidden" name="theme" value="Участие в вебинаре">
 										<div class="form-button">
 											<button class="submit">Зарегистрироваться</button>
 										</div>	
 										<div class="check-item">
-											<input type="checkbox" id="check1" class="check-input" checked>
+											<input type="checkbox" name="terms" id="check1" class="check-input" checked>
 											<label for="check1" class="check-label">Я согласен на <a href="#popup2" class="fancybox">обработку персональной информации</a></label>
 										</div>
 									</fieldset>
@@ -73,9 +79,11 @@
 					</div>
 				</div>
 			</div>
+    {% endblock %}
 		</header>
 		<section class="about">
 			<div class="holder">
+      {% block about_content %}
 				<h2>Кто проводит вебинар</h2>
 				<div class="people">
 					<div class="people-item">
@@ -168,8 +176,10 @@
 						</div>
 					</div>
 				</div>
+      {% endblock %}
 			</div>
 		</section>
+  {% block footer %}
 		<footer class="footer">
 			<div class="holder">
 				<h2>Заполните форму для участия</h2>
@@ -182,18 +192,21 @@
 				</div>
 			</div>
 		</footer>
+  {% endblock %}
 		<div id="popup" class="popup">
 			<div class="order-form">
 				<div class="form-title">Заказать обратный звонок</div>
-				<form action="">
+				<form action="{% url 'ticket' %}" method="post">
+          {% csrf_token %}
 					<fieldset>
 						<input name="name" type="text" class="input" placeholder="Ваше имя">
 						<input name="phone" type="text" class="input" placeholder="Телефон">
+            <input type="hidden" name="theme" value="Обратный звонок">
 						<div class="form-button">
 							<button class="submit">Заказать звонок</button>
 						</div>	
 						<div class="check-item">
-							<input type="checkbox" id="check2" class="check-input" checked>
+							<input type="checkbox" name="terms" id="check2" class="check-input" checked>
 							<label for="check2" class="check-label">Я согласен на <a href="#popup2" class="fancybox">обработку персональной информации</a></label>
 						</div>
 					</fieldset>
@@ -202,10 +215,16 @@
 		</div>
 		<div id="popup2" class="text-popup">
 			<h2>Пользовательское соглашение</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum, corporis, inventore asperiores veniam consequatur 
-			molestias suscipit iure harum magni illo porro voluptatibus placeat ipsum laboriosam quae? Voluptates, sequi, ducimus 
-			odio aliquam consequatur animi nostrum rem labore repellendus possimus distinctio accusamus magni minus. Totam, eaque,
-			nemo optio cum voluptatum numquam ratione.</p>
+      <p>Принимая условия настоящего Соглашения сторона, оставившая заявку (зарегистрировавшись) на сайте (далее - Заявитель),
+        подтверждает, что тем самым дает Индивидуальному предпринимателю Луневу Валерию Александровичу (ОГРН 309345903700027)
+        свое согласие на обработку его персональных данных в соответствии с Федеральным Законом от 27.07.2006 г. № 152-ФЗ
+        «О персональных данных», с использованием средств автоматизации или без использования таких средств с целью ведения
+        информационного учета в соответствии с требованиями законодательства Российской Федерации.</p>
+      <p>Заявитель предоставляет Индивидуальному предпринимателю Луневу Валерию Александровичу (ОГРН 309345903700027) право
+        осуществлять следующие действия (операции) с его персональными данными: сбор, систематизацию, накопление,
+        хранение, уточнение (обновление, изменение), использование, распространение (в том числе передачу третьим лицам),
+        обезличивание, блокирование, уничтожение. Заявитель подтверждает, что настоящее согласие дается добровольно и
+        действует бессрочно.</p>
 		</div>	
 	</div>
 {{ SETUP.bottom_js|safe|default:'' }}

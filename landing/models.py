@@ -60,3 +60,25 @@ class Ticket(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def send_admin_mail(self):
+        setup = Setup.objects.all().first()
+        if setup and setup.email:
+            email = setup.email
+            mail_theme_msg = u'webinar.onlinesadik.com - %s' % self.theme
+            message = u'Тема: %s\nИмя: %s\nТелефон: %s\nE-mail: %s\n' % \
+                      (self.theme, self.name, self.phone, self.mail)
+            send_mail(
+                mail_theme_msg,
+                message,
+                settings.DEFAULT_FROM_EMAIL,
+                [email, ]
+            )
+        return False
+
+
+@receiver(post_save, sender=Ticket)
+def create_mail(sender, created, **kwargs):
+    ticket = kwargs['instance']
+    if created:
+        ticket.send_admin_mail()

@@ -36,5 +36,32 @@ $(document).ready(function () {
 		});
 		
 	});
+
+	$('form').each(function(){
+    $(this).validate({
+      rules: {
+        phone: {
+          required: true,
+          minlength: 6,
+          message: false
+        },
+        name: {
+          required: true,
+          message: false
+        },
+        mail: {
+					email: true,
+					required: true,
+					message: false
+        }
+      },
+      messages: {
+        phone: false,
+        name: false,
+        mail: false
+        // terms: 'Вы не можете оставить заявку без согласия на обработку персональных данных'
+      }
+    });
+  });
 	
 });

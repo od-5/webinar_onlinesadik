@@ -36,3 +36,4 @@ class TicketView(CreateView):
     model = Ticket
     fields = ['name', 'phone', 'mail', 'theme',]
     success_url = reverse_lazy('ok')
+    template_name = 'index.html'
