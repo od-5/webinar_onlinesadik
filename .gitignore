@@ -1,0 +1,11 @@
+.idea/
+*.sublime*
+/cms/settings/local_settings.py
+*.pyc
+/landing/migrations
+/core/migrations
+db.sqlite3
+venv
+docker
+Dockerfile
+docker-compose.yml
