@@ -68,12 +68,15 @@ class Ticket(models.Model):
             mail_theme_msg = u'webinar.onlinesadik.com - %s' % self.theme
             message = u'Тема: %s\nИмя: %s\nТелефон: %s\nE-mail: %s\n' % \
                       (self.theme, self.name, self.phone, self.mail)
-            send_mail(
-                mail_theme_msg,
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [email, ]
-            )
+            try:
+                send_mail(
+                    mail_theme_msg,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [email, ]
+                )
+            except:
+                pass
         return False
 
 
