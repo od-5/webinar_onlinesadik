@@ -19,11 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from landing.views import LandingView, OkView, TicketView
+from landing.views import LandingView, OkView, TicketView, ticket_csv
 
 urlpatterns = [
     url(r'^$', LandingView.as_view(), name='index'),
     url(r'^ticket/$', TicketView.as_view(), name='ticket'),
+    url(r'^ticket/csv/$', ticket_csv, name='ticket-csv'),
     url(r'^ok/$', OkView.as_view(), name='ok'),
     url(r'^admin/', admin.site.urls),
     url(r'', include('core.urls')),

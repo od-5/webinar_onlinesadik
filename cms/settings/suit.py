@@ -26,8 +26,6 @@ SUIT_CONFIG = {
         {'label': u'Пользователи', 'icon': 'icon-user', 'models': ('core.user', 'auth.group',)},
         {'label': u'Настройки', 'icon': 'icon-cog', 'models': ('landing.setup',)},
         {'label': u'Заявки', 'icon': 'icon-list-alt', 'models': ('landing.ticket',)},
-        {'label': u'Продажи', 'icon': 'icon-user', 'models': ('landing.sale',)},
-        {'label': u'Статьи', 'icon': 'icon-pencil', 'models': ('blog.article',)},
-        {'label': u'Рассылки', 'icon': 'icon-list-alt', 'models': ('landing.mail',)},
+        {'label': u'Импорт заявок в CSV', 'icon': 'icon-list-alt', 'url': '/ticket/csv/'},
     ),
 }

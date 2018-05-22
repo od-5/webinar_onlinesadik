@@ -1,5 +1,8 @@
 # coding=utf-8
+import csv
+
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.urls import reverse_lazy
@@ -37,3 +40,20 @@ class TicketView(CreateView):
     fields = ['name', 'phone', 'mail', 'theme',]
     success_url = reverse_lazy('ok')
     template_name = 'index.html'
+
+
+@login_required
+def ticket_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    qs = Ticket.objects.all()
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+
+    writer = csv.writer(response)
+    for i in qs:
+        # try:
+        writer.writerow([i.name.encode('utf8'), i.phone, i.mail])
+        # except:
+        #     pass
+
+    return response
