@@ -11,6 +11,7 @@ from django.views.generic import TemplateView, CreateView
 from django.views.generic.base import ContextMixin
 from django.shortcuts import get_object_or_404
 
+from landing.forms import TicketForm
 from .models import Ticket, Setup
 
 
@@ -37,8 +38,8 @@ class OkView(TemplateView, SetupMixin):
 
 class TicketView(CreateView):
     model = Ticket
-    fields = ['name', 'phone', 'mail', 'theme',]
-    success_url = reverse_lazy('ok')
+    form_class = TicketForm
+    success_url = reverse_lazy('index')
     template_name = 'index.html'
 
 

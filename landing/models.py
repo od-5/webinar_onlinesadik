@@ -23,6 +23,9 @@ class Setup(Common):
     bottom_js = models.TextField(verbose_name=u'Скрипты перед закрывающим </BODY>', blank=True)
     robots_txt = models.TextField(verbose_name=u'ROBOTS.TXT', blank=True, null=True)
     sitemap = models.TextField(verbose_name=u'sitemap.xml', blank=True, null=True)
+    insta_link = models.CharField(verbose_name=u'Ссылка на инстаграм', max_length=256, blank=True)
+    vk_link = models.CharField(verbose_name=u'Ссылка на Вконтакте', max_length=256, blank=True)
+    youtube_link = models.CharField(verbose_name=u'Ссылка на канал youtube', max_length=256, blank=True)
 
     class Meta:
         verbose_name = u'Настройки сайта'

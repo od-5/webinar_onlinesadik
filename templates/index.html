@@ -1,232 +1,656 @@
+<!doctype html>
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-	<meta charset="utf-8">
-	<meta name="keywords" content="{{ SETUP.meta_key|default:'' }}">
-	<meta name="description" content="{{ SETUP.meta_key|default:'' }}">
-	<meta name="format-detection" content="telephone=no">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-{#	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />#}
-	<title>{{ SETUP.title|default:'onlinesadik.com' }}</title>
-	<link media="all" rel="stylesheet" type="text/css" href="{% static 'css/all.css' %}" />
-	<link media="all" rel="stylesheet" type="text/css" href="{% static 'css/jquery.fancybox.css' %}" />
-	<script src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
-	<script src="{% static 'js/jquery.validate.js' %}"></script>
-	<script src="{% static 'js/jquery.fancybox.js' %}"></script>
-	<script src="{% static 'js/jquery.scrollTo.min.js' %}"></script>
-	<script src="{% static 'js/typed.min.js' %}"></script>
-	<!--[if lt IE 9]><script type="text/javascript" src="{% static 'js/html5.js' %}"></script><![endif]-->
-	<script src="{% static 'js/all.js' %}"></script>
-  {{ SETUP.top_js|safe|default:'' }}
-  {% block extra_top %}
-  {% endblock %}
-</head>
-<body>	
-	<div id="wrapper">
-		<header class="header">	
-			<div class="header-top">
-				<div class="holder">
-					<div class="header-logo">
-						<img src="{% static 'images/logo.png' %}" alt="">
-						<div class="header-logo-text">Onlinesadik<span>.com</span></div>
-					</div>
-					<div class="header-right">
-						<a href="tel:{{ SETUP.phone_format|default:'88002503450' }}" class="header-phone">{{ SETUP.phone|default:'8 800  250-34-50' }}</a>
-						<div class="header-link"><a href="#popup" class="fancybox">Закажите обратный звонок</a></div>
-					</div>
-					<div class="header-center">Бесплатный <b>вебинар</b></div>
-				</div>
-			</div>
-    {% block header_content %}
-			<div class="header-main">
-				<div class="holder">
-					<div class="header-block">
-						<div class="header-column">
-							<h1>Как создать <br>пассивный доход от <span>150 000 рублей в месяц</span></h1>
-							<div class="header-note">
-								<b>Регистрация бесплатна</b>
-								Количество мест ограничено
-							</div>
-							<div class="header-video">
-                <iframe src="https://www.youtube.com/embed/kQKf9FvgMGM" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-							</div>
-						</div>
-						<div class="header-form" id="form-block">
-							<div class="header-form-top">
-								<span>23.05.2018  |  17:00</span>
-							</div>
-							<div class="header-form-block">
-								<div class="form-title">Заполните форму <br>для участия в вебинаре</div>
-								<form action="{% url 'ticket' %}" method="post">
-                  {% csrf_token %}
-									<fieldset>
-										<input name="name" type="text" class="input" placeholder="Ваше имя">
-										<input name="phone" type="text" class="input" placeholder="Телефон">
-										<input name="mail" type="text" class="input" placeholder="E-mail">
-                    <input type="hidden" name="theme" value="Участие в вебинаре">
-										<div class="form-button">
-											<button class="submit">Зарегистрироваться</button>
-										</div>	
-										<div class="check-item">
-											<input type="checkbox" name="terms" id="check1" class="check-input" checked>
-											<label for="check1" class="check-label">Я согласен на <a href="#popup2" class="fancybox">обработку персональной информации</a></label>
-										</div>
-									</fieldset>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-    {% endblock %}
-		</header>
-		<section class="about">
-			<div class="holder">
-      {% block about_content %}
-				<h2>Кто проводит вебинар</h2>
-				<div class="people">
-					<div class="people-item">
-						<div class="people-img">
-							<img src="{% static 'images/man1.jpg' %}" alt="">
-						</div>
-						<div class="people-content">
-							<div class="people-float">
-								<div class="people-name">Лунев Валерий</div>
-								<div class="people-text">Основатель проекта<br> онлайн садик<br> <a href="http://franchise.onlinesadik.com">franchise.onlinesadik.com</a></div>
-							</div>
-						</div>
-					</div>
-					<div class="people-item">
-						<div class="people-img">
-							<img src="{% static 'images/man2.jpg' %}" alt="">
-						</div>
-						<div class="people-content">
-							<div class="people-float">
-								<div class="people-name">Хамидуллин Артур</div>
-								<div class="people-text">Директор по<br> франчайзингу<br> <a href="http://franchise.onlinesadik.com">franchise.onlinesadik.com</a></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<h2>Программа бесплатного вебинара</h2>
-				<div class="about-block">
-					<div class="about-column">
-						<div class="about-item">
-							<div class="about-num">1</div>
-							<div class="about-content">
-								<div class="about-float">Презентация сервиса<br> и обновлений «Онлайн садик»</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">2</div>
-							<div class="about-content">
-								<div class="about-float">Как зарабатывать в проекте?</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">3</div>
-							<div class="about-content">
-								<div class="about-float">Что получают партнеры проекта?</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">4</div>
-							<div class="about-content">
-								<div class="about-float">Успешные истории партнеров<br> в прямом эфире</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">5</div>
-							<div class="about-content">
-								<div class="about-float">Планы развития на год</div>
-							</div>
-						</div>
-					</div>
-					<div class="about-column">
-						<div class="about-item">
-							<div class="about-num">6</div>
-							<div class="about-content">
-								<div class="about-float">Как сэкономить до 50%<br> на оборудовании?</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">7</div>
-							<div class="about-content">
-								<div class="about-float">Пошаговый план запуска в городе</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">8</div>
-							<div class="about-content">
-								<div class="about-float">ВОПРОСЫ участников вебинара</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">9</div>
-							<div class="about-content">
-								<div class="about-float">Персональная скидка 20% на покупку франшизы для участников вебинара</div>
-							</div>
-						</div>
-						<div class="about-item">
-							<div class="about-num">10</div>
-							<div class="about-content">
-								<div class="about-float">Дополнительный бонус</div>
-							</div>
-						</div>
-					</div>
-				</div>
-      {% endblock %}
-			</div>
-		</section>
-  {% block footer %}
-		<footer class="footer">
-			<div class="holder">
-				<h2>Заполните форму для участия</h2>
-				<div class="footer-button">
-					<a href="#form-block" class="button scroll">Зарегистрироваться</a>
-				</div>
-				<div class="footer-note">
-					<b>Регистрация бесплатна</b>
-					Количество мест ограничено
-				</div>
-			</div>
-		</footer>
-  {% endblock %}
-		<div id="popup" class="popup">
-			<div class="order-form">
-				<div class="form-title">Заказать обратный звонок</div>
-				<form action="{% url 'ticket' %}" method="post">
-          {% csrf_token %}
-					<fieldset>
-						<input name="name" type="text" class="input" placeholder="Ваше имя">
-						<input name="phone" type="text" class="input" placeholder="Телефон">
-            <input type="hidden" name="theme" value="Обратный звонок">
-						<div class="form-button">
-							<button class="submit">Заказать звонок</button>
-						</div>	
-						<div class="check-item">
-							<input type="checkbox" name="terms" id="check2" class="check-input" checked>
-							<label for="check2" class="check-label">Я согласен на <a href="#popup2" class="fancybox">обработку персональной информации</a></label>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-		<div id="popup2" class="text-popup">
-			<h2>Пользовательское соглашение</h2>
-      <p>Принимая условия настоящего Соглашения сторона, оставившая заявку (зарегистрировавшись) на сайте (далее - Заявитель),
-        подтверждает, что тем самым дает Индивидуальному предпринимателю Луневу Валерию Александровичу (ОГРН 309345903700027)
-        свое согласие на обработку его персональных данных в соответствии с Федеральным Законом от 27.07.2006 г. № 152-ФЗ
-        «О персональных данных», с использованием средств автоматизации или без использования таких средств с целью ведения
-        информационного учета в соответствии с требованиями законодательства Российской Федерации.</p>
-      <p>Заявитель предоставляет Индивидуальному предпринимателю Луневу Валерию Александровичу (ОГРН 309345903700027) право
-        осуществлять следующие действия (операции) с его персональными данными: сбор, систематизацию, накопление,
-        хранение, уточнение (обновление, изменение), использование, распространение (в том числе передачу третьим лицам),
-        обезличивание, блокирование, уничтожение. Заявитель подтверждает, что настоящее согласие дается добровольно и
-        действует бессрочно.</p>
-		</div>	
-	</div>
-{{ SETUP.bottom_js|safe|default:'' }}
-</body>
+<html class="no-js" lang="ru">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>{{ SETUP.title|default:'Онлайн Садик' }}</title>
+        <meta content="{{ SETUP.meta_desc|default:'' }}" name="description">
+        <meta content="{{ SETUP.meta_key|default:'' }}" name="keywords">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta content="telephone=no" name="format-detection">
+        <!-- This make sence for mobile browsers. It means, that content has been optimized for mobile browsers -->
+        <meta name="HandheldFriendly" content="true">
+
+
+        <!--[if (gt IE 9)|!(IE)]><!-->
+        <link href="{% static 'css/main3h1bwg.css' %}" rel="stylesheet" type="text/css">
+        <!--<![endif]-->
+        <link href="{% static 'css/webinar.css' %}" rel="stylesheet" type="text/css">
+
+        <meta property="og:title" content="" />
+        <meta property="og:url" content="" />
+        <meta property="og:description" content="" />
+        <meta property="og:image" content="" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="500" />
+        <meta property="og:image:height" content="300" />
+        <meta property="twitter:description" content="" />
+        <link rel="image_src" href="" />
+
+        <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}">
+        <script>
+            (function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement)
+        </script>
+		{{ SETUP.top_js|safe|default:'' }}
+	    {% block extra_top %}
+	    {% endblock %}
+    </head>
+
+    <body class="page__wrapper page__wrapper_webinar">
+
+
+        <!-- header -->
+        <header id="header" class="header__wrap">
+            <div class="header webinar-header">
+                <div class="container">
+                    <a href="http://onlinesadik.com/" class="header__logo">
+                        <svg class="header__logo-icon" width="150px" height="60px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#logo_black"></use>
+                        </svg>
+                    </a>
+                    <div class="webinar-header__title">
+
+                        <svg class="webinar-header__icon" width="18px" height="18px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-header-icon"></use>
+                        </svg>
+
+                        <p class="webinar-header__text">Бесплатный <span>вебинар</span>
+                        </p>
+                    </div>
+                    <div class="webinar-header__phone-wrap">
+                        <a class="webinar-header__phone_link" href="tel:{{ SETUP.phone_format|default:'88002503450' }}">{{ SETUP.phone|default:'8 800  250-34-50' }}</a>
+                        <span>Звонок по России бесплатный</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- /header -->
+
+        <!-- content -->
+        <section class="page__content">
+            <div class="webinar-main-block" id="top">
+                <div class="container webinar-container">
+                    <div class="webinar-main-block__left">
+                        <h1 class="index__title">
+
+                            Как создать пассивный доход
+
+
+
+                            <span class="color-green"> от 150 000 ₽ в месяц</span>
+
+                        </h1>
+                        <div class="webinar-main-block__items-wrap">
+                            <div class="webinar-main-block__item webinar-main-block__item_text">
+
+                                <svg class="webinar-main-block__register-icon" width="45px" height="60px">
+                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-register-icon"></use>
+                                </svg>
+
+                                <div class="webinar-main-block__text-wrap">
+                                    <h3 class="index__sub-title">
+
+                                        Регистрация бесплатна
+
+                                    </h3>
+                                    <span class="color-green">Количество мест ограничено</span>
+                                </div>
+
+                            </div>
+                            <div class="webinar-main-block__item">
+                                <div class="index__video-wrap popup-open" data-id="video-popup">
+                                    <img class="index__video-img" src="{% static 'images/general/webinar-video-logo.jpg' %}" alt="onlinesadik.com | Система видеонаблюдения">
+                                    <div class="index__video-text_wrap">
+
+                                        <svg class="index__video-icon" width="24px" height="30px">
+                                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#play"></use>
+                                        </svg>
+
+                                        <span>Приглашение на вебинар <br> от создателей <br>
+
+                                            проекта «Онлайн садик»</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="webinar-main-block__right">
+                        <div class="webinar-form-wrap">
+                            <div class="webinar-form-content-wrap">
+                                <div class="webinar-form__title">
+                                    <div class="webinar-form__date-wrap">
+
+
+                                        <svg class="webinar-form__date-icon" width="19px" height="18px">
+                                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-form-date"></use>
+                                        </svg>
+
+                                        <p class="color-green webinar-form__date">16.04.2018 <span>12:00</span>
+                                        </p>
+                                    </div>
+
+                                    <h3 class="index__sub-title">Заполните  форму <span style="display: block"> для участия <br> в вебинаре</span></h3>
+                                </div>
+                                <div class="step_form">
+                                    <form action="{% url 'ticket' %}" id="form1" method="post">{% csrf_token %}
+                                        <div class="form__item">
+                                            <div class="form__input-wrap">
+                                                <input class="form__input" type="text" id="id_name1" name="name">
+                                                <label for="" class="form__label">Имя</label>
+
+                                                <svg class="form__input-icon" width="11px" height="13px">
+                                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#user-o"></use>
+                                                </svg>
+
+                                            </div>
+                                        </div>
+                                        <div class="form__item">
+                                            <div class="form__input-wrap w-25 select-input">
+                                                <input class="form__input choose-only" type="text" name="code" readonly="" value="+7">
+
+                                                <svg class="form__input-icon" width="10px" height="7px">
+                                                    <use xlink:href="{% static 'images/svg-symbolsyel59c.svg' %}#arrow_choose"></use>
+                                                </svg>
+
+                                                <div class="select_container">
+                                                    <div class="select_item set-value">
+                                                        <div class="select_item-content">
+                                                            <span class="select-value">+7</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="select_item set-value">
+                                                        <div class="select_item-content">
+                                                            <span class="select-value">+996</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form__input-wrap w-75">
+                                                <input class="form__input phone_mask" type="tel" id="id_phone1" name="phone">
+                                                <label for="" class="form__label">Телефон</label>
+
+                                                <svg class="form__input-icon" width="12px" height="13px">
+                                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#phone"></use>
+                                                </svg>
+
+                                            </div>
+                                        </div>
+                                        <div class="form__item">
+                                            <div class="form__input-wrap">
+                                                <input class="form__input" type="email" id="id_mail1" name="mail">
+                                                <label for="" class="form__label">Email</label>
+
+                                                <svg class="form__input-icon" width="12px" height="9px">
+                                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#mail"></use>
+                                                </svg>
+
+                                            </div>
+                                        </div>
+                                        <div class="form__item">
+                                            <button class="btn">зарегистрироваться</button>
+                                        </div>
+                                        <div class="form__item">
+                                            <div class="form__checkbox-wrap">
+                                                <input id="webinar-confirm_2" name="terms" class="form__checkbox" type="checkbox">
+                                                <label for="webinar-confirm_2" class="form__checkbox-label">Я согласен на обработку <a class="text-link" href="http://onlinesadik.com/policy/" target="_blank">персональной информации</a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <svg class="webinar-form__border_white" width="295px" height="47px">
+                                <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-form-border-white"></use>
+                            </svg>
+
+
+                            <svg class="webinar-form__border_grey" width="64px" height="76px">
+                                <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-form-border-grey"></use>
+                            </svg>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="index__block webinar-block_event">
+                <div class="container webinar-container">
+                    <div class="index_title-divider">
+                        <svg class="index_title-divider_icon" width="29px" height="40px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#microphone"></use>
+                        </svg>
+                    </div>
+                    <h2 class="index__title">Кто проводит вебинар</h2>
+                    <div class="webinar-block__person-wrap">
+                        <div class="webinar-block__person-item">
+                            <img src="{% static 'images/general/webinar-person.jpg' %}" alt="photo" class="webinar-block__person-photo">
+                            <div class="webinar-block__person-text-wrap">
+                                <div class="index__block3-item_flag">
+
+                                    <svg class="index_block3-item_icon" width="20px" height="25px">
+                                        <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-flag1"></use>
+                                    </svg>
+
+                                </div>
+                                <div class="webinar-block__person-text">
+                                    <h3 class="index__sub-title">
+
+                                        Лунев Валерий
+
+                                    </h3>
+                                    <span class="webinar-block__person-bio">Основатель проекта <br> «Онлайн садик»</span>
+                                    <a href="https://franchise.onlinesadik.com/" class="webinar-block__person-link">franchise.onlinesadik.com</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="webinar-block__person-item">
+                            <img src="{% static 'images/general/webinar-person2.jpg' %}" alt="photo" class="webinar-block__person-photo">
+                            <div class="webinar-block__person-text-wrap">
+                                <div class="index__block3-item_flag">
+
+                                    <svg class="index_block3-item_icon" width="20px" height="25px">
+                                        <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-flag2"></use>
+                                    </svg>
+
+                                </div>
+                                <div class="webinar-block__person-text">
+                                    <h3 class="index__sub-title">
+
+                                        Громов Александр
+
+                                    </h3>
+                                    <span lass="webinar-block__person-bio">Руководитель отдела сопровождения</span>
+                                    <a href="https://franchise.onlinesadik.com/" class="webinar-block__person-link">franchise.onlinesadik.com</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="index__block webinar-block_program">
+
+                <div class="container webinar-container">
+                    <div class="index_title-divider">
+                        <svg class="index_title-divider_icon" width="48px" height="63px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-programm-icon"></use>
+                        </svg>
+                    </div>
+                    <h2 class="index__title">Программа бесплатного вебинара</h2>
+                    <ol class="webinar-block__list">
+                        <li class="webinar-block__list-item">
+                            <span> <b>Презентация </b>сервиса <br>
+
+                            и обновлений «Онлайн садик»</span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> Как <b>зарабатывать </b> <br>
+
+                                        в проекте?
+
+
+
+                                        </span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> Что <b>получают</b> <br>
+
+                                            партнеры проекта?</span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> Успешные <b>истории партнеров</b> <br>
+
+                                                в прямом эфире
+
+                                                </span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> <b>Перспективы рынка <br> видеонаблюдения</b> в сфере  <br> образования</span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> <b>Подключение садиков </b> <br>
+
+                                                        к системе</span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span>Пошаговый <b>план</b> <br>
+
+                                                            запуска в городе</span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> <b>Вопросы</b> участников <br>
+
+                                                                вебинара
+
+                                                                </span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span>Персональная <b>скидка 20% </b> <br>
+
+                                                                    на покупку франшизы  <br>
+
+                                                                    для участников вебинара
+
+                                                                    </span>
+                        </li>
+                        <li class="webinar-block__list-item">
+                            <span> <b>Дополнительный бонус </b> <br>
+
+                                                                        для быстрого старта региона
+
+                                                                        </span>
+                        </li>
+                    </ol>
+                </div>
+
+            </div>
+
+            <div class="index__block webinar-block_form">
+                <div class="container">
+                    <div class="step_form-wrap">
+                        <div class="step_form-text">
+                            <h3 class="index__sub-title">
+
+                                                <div class="webinar-form__date-wrap">
+
+
+
+
+                        <svg class="webinar-form__date-icon" width="19px" height="18px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#webinar-form-date"></use>
+                        </svg>
+
+
+                                                        <span class="color-green webinar-form__date">16.04.2018 <span>12:00</span> </span>
+
+                                                    </div>
+
+                                            </h3>
+
+                            <h1 class="index__title">
+
+                                                    Заполните форму
+
+                                                    для участия <br>
+
+                                                    в вебинаре
+
+                                            </h1>
+                        </div>
+                        <div class="step_form">
+                            <form action="{% url 'ticket' %}" id="form2" method="post">{% csrf_token %}
+                                <div class="form__item">
+                                    <div class="form__input-wrap">
+                                        <input class="form__input" type="text" id="id_name" name="name">
+                                        <label for="" class="form__label">Имя</label>
+
+                                        <svg class="form__input-icon" width="11px" height="13px">
+                                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#user-o"></use>
+                                        </svg>
+
+                                    </div>
+                                </div>
+                                <div class="form__item">
+                                    <div class="form__input-wrap w-25 select-input">
+                                        <input class="form__input choose-only" name="code" type="text" readonly="" value="+7">
+
+                                        <svg class="form__input-icon" width="10px" height="7px">
+                                            <use xlink:href="{% static 'images/svg-symbolsyel59c.svg' %}#arrow_choose"></use>
+                                        </svg>
+
+                                        <div class="select_container">
+                                            <div class="select_item set-value">
+                                                <div class="select_item-content">
+                                                    <span class="select-value">+7</span>
+                                                </div>
+                                            </div>
+                                            <div class="select_item set-value">
+                                                <div class="select_item-content">
+                                                    <span class="select-value">+996</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form__input-wrap w-75">
+                                        <input class="form__input phone_mask" type="tel" id="id_phone" name="phone">
+                                        <label for="" class="form__label">Телефон</label>
+
+                                        <svg class="form__input-icon" width="12px" height="13px">
+                                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#phone"></use>
+                                        </svg>
+
+                                    </div>
+                                </div>
+                                <div class="form__item">
+                                    <div class="form__input-wrap">
+                                        <input class="form__input" type="email" id="id_mail" name="mail">
+                                        <label for="" class="form__label">Email</label>
+
+                                        <svg class="form__input-icon" width="12px" height="9px">
+                                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#mail"></use>
+                                        </svg>
+
+                                    </div>
+                                </div>
+                                <div class="form__item">
+                                    <button class="btn">зарегистрироваться</button>
+
+                                </div>
+                                <div class="form__item">
+                                    <div class="form__checkbox-wrap">
+                                        <input id="webinar-confirm" class="form__checkbox" type="checkbox" name="terms">
+                                        <label for="webinar-confirm" class="form__checkbox-label">Я согласен на <a class="text-link" href="http://onlinesadik.com/policy/" target="_blank">обработку персональной информации</a>
+                                        </label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="step_border"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="video-popup" class="popup_wrap">
+                <div class="popup_layout popup-close" data-id="video-popup"></div>
+                <div class="popup_container">
+                    <div class="popup_close popup-close" data-id="video-popup">
+                        <svg class="cancel-icon" width="212.982px" height="212.982px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#cancel"></use>
+                        </svg>
+
+                    </div>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/RQ1E90CJuF8?version=3&enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                </div>
+            </div>
+        </section>
+        <!-- /content -->
+
+        <!-- footer -->
+        <div id="request-popup" class="popup_wrap">
+            <div class="popup_layout popup-close" data-id="request-popup"></div>
+            <div class="popup_container request-popup">
+
+                <svg class="city_popup-border-green" width="155px" height="42px">
+                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#city_popup-border-green"></use>
+                </svg>
+
+
+                <svg class="city_popup-border-grey" width="84px" height="148px">
+                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#city_popup-border-grey"></use>
+                </svg>
+
+                <div class="popup_city-border"></div>
+                <div class="popup_close popup-close" data-id="request-popup">
+                    <svg class="cancel-icon" width="212.982px" height="212.982px">
+                        <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#cancel"></use>
+                    </svg>
+                </div>
+                <p class="index__title color-green">Благодарим! Ваша заявка принята.</p>
+            </div>
+        </div>
+        <footer class="footer__wrap webinar-footer">
+            <div class="footer__nav-wrap">
+                <div class="container">
+                    <a href="#top" class="footer__top-wrap anchor">
+
+                        <svg class="footer__top-icon" width="9px" height="13px">
+                            <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#arrow_top"></use>
+                        </svg>
+
+                        <span class="footer__top-text">Вверх</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer__main-wrap">
+                <div class="container">
+                    <div class="footer__main-block">
+                        <a href="http://onlinesadik.com/" class="footer__logo anchor">
+
+                            <svg class="header__logo-icon" width="150px" height="60px">
+                                <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#logo_white"></use>
+                            </svg>
+
+                        </a>
+                        <div class="footer__phone-wrap">
+                            <a href="tel:{{ SETUP.phone_format|default:'88002503450' }}">{{ SETUP.phone|default:'8 800  250-34-50' }}</a>
+                            <span>Звонок по России <br> бесплатный</span>
+                        </div>
+                        <div class="footer__social-wrap">
+                            <a href="{{ SETUP.vk_link|default:'' }}" class="footer__social-link">
+                                <svg class="footer__social-icon" width="27px" height="16px">
+                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#vk"></use>
+                                </svg>
+                            </a>
+                            <a href="{{ SETUP.insta_link|default:'' }}" class="footer__social-link">
+                                <svg class="footer__social-icon" width="21px" height="22px">
+                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#instagram"></use>
+                                </svg>
+                            </a>
+                            <a href="{{ SETUP.youtube_link|default:'' }}" class="footer__social-link">
+                                <svg class="footer__social-icon" width="27px" height="19px">
+                                    <use xlink:href="{% static 'images/svg-symbols3h1bwg.svg' %}#youtube"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="footer__politic-wrap">
+                            <a href="http://onlinesadik.com/policy/" target="_blank" class="footer__politic-link">Политика конфиденциальности</a>
+                            <div class="footer__copyright-text">Все права защищены © 2019</div>
+                        </div>
+                    </div>
+                    <div class="footer__main-block">
+                        <p class="footer__copyright-text">Любое предоставление информации третьим лицам возможно исключительно в порядке и на условиях, предусмотренных порядком использования информации, предоставляемой Обществом с ограниченной ответственностью «Международные технологии общения» (ООО "МТО"), ИНН 3460072225, КПП 346001001, ОГРН 1183443001147 от 26.01.2018, Юридический/фактический адрес: 400001 г.Волгоград ул. Пугачевская, дом 7г, офис 76</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+
+        <script src="{% static 'js/separate-js/svg4everybody.min.js' %}"></script>
+        <script>
+            svg4everybody();
+        </script>
+        <script src="static/js/mainyel59c.min.js"></script>
+        <script src="{% static 'js/jquery-1.9.1.min.js' %}"></script>
+        <script src="{% static 'js/jquery.validate.js' %}"></script>
+        <script src="{% static 'js/jquery.form.js' %}"></script>
+        <script src="{% static 'js/jquery.maskedinput.js' %}"></script>
+        <script>
+            $(document).ready(function () {
+                $('#form1').validate({
+                    rules: {
+                        name: {
+                            required: true
+                        },
+                        phone: {
+                            required: true
+                        },
+                        mail: {
+                            required: true
+                        },
+                        terms: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        phone: 'Это поле обязательно',
+                        name: 'Это поле обязательно',
+                        mail: 'Это поле обязательно',
+                        terms: 'Вы не можете оставить заявку без согласия на обработку персональной информации'
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.attr("type") == "checkbox") {
+                            return error.insertAfter($(element).parent().parent());
+                        }
+                        return error.insertAfter($(element).parent().parent())
+                        error.insertAfter($(element));
+                    },
+                    submitHandler: function(e) {
+                      $('#form1').ajaxSubmit({
+                          success: function(data){
+                            $('form').trigger('reset');
+                            $('#request-popup').show();
+                          }
+                      });
+                    }
+                });
+                $('#form2').validate({
+                    rules: {
+                        name: {
+                            required: true
+                        },
+                        phone: {
+                            required: true
+                        },
+                        mail: {
+                            required: true
+                        },
+                        terms: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        phone: 'Это поле обязательно',
+                        name: 'Это поле обязательно',
+                        mail: 'Это поле обязательно',
+                        terms: 'Вы не можете оставить заявку без согласия на обработку персональной информации'
+                    },
+                    errorPlacement: function (error, element) {
+                        if (element.attr("type") == "checkbox") {
+                            return error.insertAfter($(element).parent().parent());
+                        }
+                        return error.insertAfter($(element).parent().parent())
+                        error.insertAfter($(element));
+                    },
+                    submitHandler: function(e) {
+                      $('#form2').ajaxSubmit({
+                          success: function(data){
+                            $('form').trigger('reset');
+                            $('#request-popup').show();
+                          }
+                      });
+                    }
+                });
+                $('form').each(
+                    function(){
+                      if ($(this).find('input').val()) {
+                        $(this).addClass('focus');
+                      }
+                });
+                $('.phone_mask').mask('(999) 999-99-99');
+
+                $('.phone_mask').on('focus', function () {
+                    $(this).attr('placeholder', '(___) ___-__-__')
+                });
+            });
+        </script>
+    </body>
+
 </html>
