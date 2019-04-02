@@ -7,7 +7,7 @@ from .models import Ticket, Setup
 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('name', 'phone', 'mail', 'theme')
+    list_display = ('name', 'phone', 'mail', 'theme', 'created')
     list_filter = ['mail', 'created', 'theme']
     search_fields = ['mail', ]
     date_hierarchy = 'created'
