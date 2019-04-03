@@ -149,23 +149,20 @@
                                         </div>
                                         <div class="form__item">
                                             <div class="form__input-wrap w-25 select-input">
-                                                <input class="form__input choose-only" type="text" name="code" readonly="" value="+7">
+                                                <input class="form__input choose-only" type="text" name="code" readonly="" value="{{ SETUP.codes_as_list.0 }}">
 
                                                 <svg class="form__input-icon" width="10px" height="7px">
                                                     <use xlink:href="{% static 'images/svg-symbolsyel59c.svg' %}#arrow_choose"></use>
                                                 </svg>
 
                                                 <div class="select_container">
-                                                    <div class="select_item set-value">
-                                                        <div class="select_item-content">
-                                                            <span class="select-value">+7</span>
+                                                    {% for code in SETUP.codes_as_list %}
+                                                        <div class="select_item set-value">
+                                                            <div class="select_item-content">
+                                                                <span class="select-value">{{ code }}</span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="select_item set-value">
-                                                        <div class="select_item-content">
-                                                            <span class="select-value">+996</span>
-                                                        </div>
-                                                    </div>
+                                                    {% endfor %}
                                                 </div>
                                             </div>
                                             <div class="form__input-wrap w-75">
@@ -331,7 +328,7 @@
                                                                 </span>
                         </li>
                         <li class="webinar-block__list-item">
-                            <span>Персональная <b>скидка 20% </b> <br>
+                            <span>Персональная <b>скидка 15% </b> <br>
 
                                                                     на покупку франшизы  <br>
 
@@ -398,23 +395,20 @@
                                 </div>
                                 <div class="form__item">
                                     <div class="form__input-wrap w-25 select-input">
-                                        <input class="form__input choose-only" name="code" type="text" readonly="" value="+7">
+                                        <input class="form__input choose-only" name="code" type="text" readonly="" value="{{ SETUP.codes_as_list.0 }}">
 
                                         <svg class="form__input-icon" width="10px" height="7px">
                                             <use xlink:href="{% static 'images/svg-symbolsyel59c.svg' %}#arrow_choose"></use>
                                         </svg>
 
                                         <div class="select_container">
-                                            <div class="select_item set-value">
-                                                <div class="select_item-content">
-                                                    <span class="select-value">+7</span>
+                                            {% for code in SETUP.codes_as_list %}
+                                                <div class="select_item set-value">
+                                                    <div class="select_item-content">
+                                                        <span class="select-value">{{ code }}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="select_item set-value">
-                                                <div class="select_item-content">
-                                                    <span class="select-value">+996</span>
-                                                </div>
-                                            </div>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <div class="form__input-wrap w-75">

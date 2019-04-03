@@ -24,6 +24,8 @@ class Setup(Common):
     insta_link = models.CharField(verbose_name=u'Ссылка на инстаграм', max_length=256, blank=True)
     vk_link = models.CharField(verbose_name=u'Ссылка на Вконтакте', max_length=256, blank=True)
     youtube_link = models.CharField(verbose_name=u'Ссылка на канал youtube', max_length=256, blank=True)
+    codes = models.TextField(verbose_name=u'Коды стран через точку с запятой. Например: +7;+960;+380;',
+                             default='+7;+996;')
 
     class Meta:
         verbose_name = u'Настройки сайта'
@@ -43,6 +45,9 @@ class Setup(Common):
         else:
             formatted_phone = None
         return formatted_phone
+
+    def codes_as_list(self):
+        return [x for x in self.codes.split(';') if x]
 
 
 class Ticket(models.Model):
