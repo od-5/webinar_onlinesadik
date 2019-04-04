@@ -149,24 +149,24 @@
                                         </div>
                                         <div class="form__item">
                                             <div class="form__input-wrap w-25 select-input">
-                                                <input class="form__input choose-only" type="text" name="code" readonly="" value="{{ SETUP.codes_as_list.0 }}">
+                                                <input class="form__input choose-only" type="text" name="code" readonly="" value="{{ country_qs.0.code }}">
 
                                                 <svg class="form__input-icon" width="10px" height="7px">
                                                     <use xlink:href="{% static 'images/svg-symbolsyel59c.svg' %}#arrow_choose"></use>
                                                 </svg>
 
                                                 <div class="select_container">
-                                                    {% for code in SETUP.codes_as_list %}
-                                                        <div class="select_item set-value">
+                                                    {% for country in country_qs %}
+                                                        <div class="select_item set-value set-value-country">
                                                             <div class="select_item-content">
-                                                                <span class="select-value">{{ code }}</span>
+                                                                <span class="select-value">{{ country.code }}</span>
                                                             </div>
                                                         </div>
                                                     {% endfor %}
                                                 </div>
                                             </div>
                                             <div class="form__input-wrap w-75">
-                                                <input class="form__input phone_mask" type="tel" id="id_phone1" name="phone">
+                                                <input class="form__input phone_mask phone_input" type="tel" id="id_phone1" data-url="{% url 'country-format' %}" name="phone">
                                                 <label for="" class="form__label">Телефон</label>
 
                                                 <svg class="form__input-icon" width="12px" height="13px">
@@ -395,24 +395,24 @@
                                 </div>
                                 <div class="form__item">
                                     <div class="form__input-wrap w-25 select-input">
-                                        <input class="form__input choose-only" name="code" type="text" readonly="" value="{{ SETUP.codes_as_list.0 }}">
+                                        <input class="form__input choose-only" name="code" type="text" readonly="" value="{{ country_qs.0.code }}">
 
                                         <svg class="form__input-icon" width="10px" height="7px">
                                             <use xlink:href="{% static 'images/svg-symbolsyel59c.svg' %}#arrow_choose"></use>
                                         </svg>
 
                                         <div class="select_container">
-                                            {% for code in SETUP.codes_as_list %}
-                                                <div class="select_item set-value">
+                                            {% for country in country_qs %}
+                                                <div class="select_item set-value set-value-country">
                                                     <div class="select_item-content">
-                                                        <span class="select-value">{{ code }}</span>
+                                                        <span class="select-value">{{ country.code }}</span>
                                                     </div>
                                                 </div>
                                             {% endfor %}
                                         </div>
                                     </div>
                                     <div class="form__input-wrap w-75">
-                                        <input class="form__input phone_mask" type="tel" id="id_phone" name="phone">
+                                        <input class="form__input phone_mask phone_input" type="tel" id="id_phone" data-url="{% url 'country-format' %}" name="phone">
                                         <label for="" class="form__label">Телефон</label>
 
                                         <svg class="form__input-icon" width="12px" height="13px">
@@ -638,10 +638,38 @@
                         $(this).addClass('focus');
                       }
                 });
-                $('.phone_mask').mask('(999) 999-99-99');
+
+                $.mask.definitions['9'] = '';
+                $.mask.definitions['d'] = '[0-9]';
+                $('.phone_mask').mask('(ddd) ddd-dd-dd');
 
                 $('.phone_mask').on('focus', function () {
                     $(this).attr('placeholder', '(___) ___-__-__')
+                });
+                $('body').on('click', '.set-value', function() {
+                    var value = $(this).find('.select-value').text();
+                    var $parent = $(this).parent().parent();
+                    $parent.addClass('focus');
+                    $parent.find('input').val(value);
+                    if ($(this).hasClass('set-value-country')){
+                        var phone_input = $(this).parent().parent().parent().find('.phone_input');
+                        $.ajax({
+                          url: phone_input.data('url'),
+                          dataType: "json",
+                          type: "POST",
+                          data:{
+                            code: value,
+                            csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+                          },
+                          success: function(data){
+                            phone_input.mask(data.phone_format);
+
+                            phone_input.on('focus', function () {
+                               $(this).attr('placeholder', data.phone_mask)
+                            });
+                          }
+                        });
+                    }
                 });
             });
         </script>

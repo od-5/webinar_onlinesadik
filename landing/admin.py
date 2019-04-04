@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.template.loader import render_to_string
 from django.conf.urls import url
 
-from .models import Ticket, Setup
+from .models import Ticket, Setup, Country
 
 
 class TicketAdmin(admin.ModelAdmin):
@@ -24,3 +24,4 @@ class SetupAdmin(admin.ModelAdmin):
 
 admin.site.register(Ticket, TicketAdmin)
 admin.site.register(Setup, SetupAdmin)
+admin.site.register(Country)

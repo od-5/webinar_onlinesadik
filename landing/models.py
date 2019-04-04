@@ -24,8 +24,6 @@ class Setup(Common):
     insta_link = models.CharField(verbose_name=u'Ссылка на инстаграм', max_length=256, blank=True)
     vk_link = models.CharField(verbose_name=u'Ссылка на Вконтакте', max_length=256, blank=True)
     youtube_link = models.CharField(verbose_name=u'Ссылка на канал youtube', max_length=256, blank=True)
-    codes = models.TextField(verbose_name=u'Коды стран через точку с запятой. Например: +7;+960;+380;',
-                             default='+7;+996;')
 
     class Meta:
         verbose_name = u'Настройки сайта'
@@ -46,8 +44,35 @@ class Setup(Common):
             formatted_phone = None
         return formatted_phone
 
-    def codes_as_list(self):
-        return [x for x in self.codes.split(';') if x]
+
+class Country(models.Model):
+    name = models.CharField(verbose_name=u'Название', max_length=100)
+    code = models.CharField(verbose_name=u'Код страны', max_length=5, default='+7')
+    phone_format = models.CharField(verbose_name=u'Маска номера телефона', max_length=16,
+                                    default=u'(999) 999-99-99')
+
+    class Meta:
+        ordering = ['id']
+        verbose_name = u'Страна'
+        verbose_name_plural = u'Страны'
+
+    def __unicode__(self):
+        return self.name
+
+    @property
+    def phone_mask(self):
+        mask = []
+        for i in self.phone_format:
+            if i.isdigit():
+                mask.append('_')
+            else:
+                mask.append(i)
+        return ''.join(mask)
+
+    @property
+    def phone_format_d(self):
+        return self.phone_format.replace('9', 'd')
+
 
 
 class Ticket(models.Model):

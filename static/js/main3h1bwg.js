@@ -118,10 +118,30 @@ this._uncache(!1)),this._pauseTime=a?b:null,this._paused=a,this._active=this.isA
 	});
 
 	$('body').on('click', '.set-value', function() {
-		var value = $(this).find('.select-value').text()
-		var $parent = $(this).parent().parent()
-		$parent.addClass('focus')
-		$parent.find('input').val(value)
+		var value = $(this).find('.select-value').text();
+		var $parent = $(this).parent().parent();
+		$parent.addClass('focus');
+		$parent.find('input').val(value);
+		if ($(this).hasClass('set-value-country')){
+		    var phone_input = $(this).parents('form__item').find('.phone_input');
+		    console.log(phone_input.data('url'));
+		    $.ajax({
+              url: phone_input.data('url'),
+              dataType: "json",
+              type: "POST",
+              data:{
+                code: value,
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val()
+              },
+              success: function(data){
+                phone_input.mask(data.phone_format);
+
+                phone_input.on('focus', function () {
+                   $(this).attr('placeholder', data.phone_mask)
+                });
+              }
+            });
+		}
 	});
 
     $('body').on('focus', '.form__input', function() {

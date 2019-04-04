@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-from landing.views import LandingView, OkView, TicketView, ticket_csv
+from landing.views import LandingView, OkView, TicketView, ticket_csv, get_country_format
 
 urlpatterns = [
     url(r'^$', LandingView.as_view(), name='index'),
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^ticket/csv/$', ticket_csv, name='ticket-csv'),
     url(r'^ok/$', OkView.as_view(), name='ok'),
     url(r'^admin/', admin.site.urls),
+    url(r'^ajax/country/format/$', get_country_format, name='country-format'),
     url(r'', include('core.urls')),
 ]
 
