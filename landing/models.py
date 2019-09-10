@@ -1,6 +1,3 @@
-# coding=utf-8
-from __future__ import unicode_literals
-
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
@@ -30,7 +27,7 @@ class Setup(Common):
         verbose_name_plural = u'Настройки сайта'
         app_label = 'landing'
 
-    def __unicode__(self):
+    def __str__(self):
         if self.title:
             return self.title
         else:
@@ -56,7 +53,7 @@ class Country(models.Model):
         verbose_name = u'Страна'
         verbose_name_plural = u'Страны'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     @property
@@ -89,7 +86,7 @@ class Ticket(models.Model):
         app_label = 'landing'
         ordering = ['-created']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def send_admin_mail(self):

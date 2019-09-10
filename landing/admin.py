@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.contrib import admin
 from django.template.loader import render_to_string
 from django.conf.urls import url

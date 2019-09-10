@@ -1,4 +1,3 @@
-# coding=utf-8
 import csv
 
 from annoying.decorators import ajax_request

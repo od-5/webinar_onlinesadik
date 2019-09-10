@@ -1,5 +1,5 @@
 django==1.10
-django-annoying
-django-ckeditor
+django-annoying==0.10.4
+django-ckeditor==5.3.0
 pillow
 django-suit==0.2.25

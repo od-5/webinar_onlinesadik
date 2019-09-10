@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.conf.urls import url
 
 from core.views import get_robots_txt, get_sitemap_xml

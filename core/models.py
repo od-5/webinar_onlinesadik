@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.utils import timezone
@@ -65,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return u'%s' % self.first_name
 
-    def __unicode__(self):
+    def __str__(self):
         return self.email
 
     # def has_perm(self, perm, obj=None):

@@ -1,4 +1,3 @@
-# coding=utf-8
 from django.http import HttpResponse, HttpResponseRedirect
 from landing.models import Setup
 

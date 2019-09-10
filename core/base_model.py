@@ -1,6 +1,4 @@
-# coding=utf-8
 from django.db import models
-from core.models import User
 
 __author__ = 'alexey'
 
@@ -22,5 +20,5 @@ class CommonPage(Common):
     class Meta:
         abstract = True
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
